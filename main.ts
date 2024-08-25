@@ -1,4 +1,4 @@
-type Event = {
+type ChoirEvent = {
   date: Date;
   sermon: string;
   songLeader: string;
@@ -13,10 +13,10 @@ type Event = {
 
 const createCalendarEvent = (
   calendar: GoogleAppsScript.Calendar.Calendar,
-  event: Event
+  event: ChoirEvent
 ) => {
-  const title = `${event.anthem}` || "No Anthem";
-  let description = "";
+  const title = `${event.anthem}` || 'No Anthem';
+  let description = '';
   if (event.sermon.length > 0) {
     description += `<strong>Sermon:</strong> ${event.sermon}<br>`;
   }
@@ -52,7 +52,7 @@ const createCalendarEvent = (
       events[0].setDescription(description);
     }
   } else {
-    calendar.createAllDayEvent(title, event.date, { description: description });
+    calendar.createAllDayEvent(title, event.date, {description: description});
   }
 };
 
@@ -63,8 +63,8 @@ const parseSpreadsheet = (spreadsheetId: string, sheetName: string) => {
   const lastRow: number = sheet.getLastRow();
   const data: string[][] = sheet.getRange(2, 1, lastRow - 1, 10).getValues();
 
-  const events: Event[] = [];
-  data.forEach((row: any[]) => {
+  const events: ChoirEvent[] = [];
+  data.forEach((row: string[]) => {
     const [
       dateValue,
       title,
@@ -103,18 +103,19 @@ const parseSpreadsheet = (spreadsheetId: string, sheetName: string) => {
   return events;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const main = () => {
   const properties = PropertiesService.getScriptProperties();
-  const calendarId = properties.getProperty("CALENDAR_ID");
-  const spreadsheetId = properties.getProperty("SPREADSHEET_ID");
-  const sheetName = properties.getProperty("SHEET_NAME");
+  const calendarId = properties.getProperty('CALENDAR_ID');
+  const spreadsheetId = properties.getProperty('SPREADSHEET_ID');
+  const sheetName = properties.getProperty('SHEET_NAME');
 
   if (calendarId === null || spreadsheetId === null || sheetName === null) {
-    throw new Error("Missing required properties");
+    throw new Error('Missing required properties');
   }
   const events = parseSpreadsheet(spreadsheetId, sheetName);
   const calendar = CalendarApp.getCalendarById(calendarId);
-  events.forEach((event) => {
+  events.forEach(event => {
     createCalendarEvent(calendar, event);
   });
 };

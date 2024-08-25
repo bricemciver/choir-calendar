@@ -1,1 +1,3 @@
 node_modules
+# ignore clasp.json since it needs to be unique to each user
+.clasp.json
