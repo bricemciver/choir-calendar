@@ -1,13 +1,13 @@
 type Event = {
   date: Date;
   sermon: string;
-  scripture: string;
   songLeader: string;
   hymn1: string;
   hymn2: string;
   closingHymn: string;
   anthem: string;
   bellChoir: string;
+  orchestra: string;
   notes: string;
 };
 
@@ -20,9 +20,6 @@ const createCalendarEvent = (
   if (event.sermon.length > 0) {
     description += `<strong>Sermon:</strong> ${event.sermon}<br>`;
   }
-  if (event.scripture.length > 0) {
-    description += `<strong>Scripture:</strong> ${event.scripture}<br>`;
-  }
   if (event.songLeader.length > 0) {
     description += `<strong>Song Leader:</strong> ${event.songLeader}<br>`;
   }
@@ -34,6 +31,9 @@ const createCalendarEvent = (
   }
   if (event.closingHymn.length > 0) {
     description += `<strong>Closing Hymn:</strong> ${event.closingHymn}<br>`;
+  }
+  if (event.orchestra.length > 0) {
+    description += `<strong>Orchestra:</strong> ${event.orchestra}<br>`;
   }
   if (event.bellChoir.length > 0) {
     description += `<strong>Bell Choir:</strong> ${event.bellChoir}<br>`;
@@ -68,12 +68,12 @@ const parseSpreadsheet = (spreadsheetId: string, sheetName: string) => {
     const [
       dateValue,
       title,
-      scripture,
       songLeader,
       hymn1,
       hymn2,
       closingHymn,
       anthem,
+      orchestra,
       bellChoir,
       notes,
     ] = row;
@@ -89,7 +89,7 @@ const parseSpreadsheet = (spreadsheetId: string, sheetName: string) => {
       events.push({
         date: eventDate,
         sermon: title,
-        scripture: scripture,
+        orchestra: orchestra,
         songLeader: songLeader,
         hymn1: hymn1,
         hymn2: hymn2,
