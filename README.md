@@ -22,7 +22,7 @@ npm install -g typescript
 npm install -g @google/clasp
 ```
 
-clasp### [Clasp](https://github.com/google/clasp) Details
+### [Clasp](https://github.com/google/clasp) Details
 ```sh
 # Login with google credentials
 clasp login
@@ -30,13 +30,6 @@ clasp login
 # Logout at end of session
 clasp logout
 ```
-
-Update `scriptId` in Project Settings File (`.clasp.json`) to match target Google Apps Script
-
-> Find Script ID in URL of the GAS editor:  
-> <div>https://script.google.com/home/projects/[ scriptId ]/edit</div>
-<br>
-
 
 ### Local Installs
 As detailed by `package.json` (or `package-lock.json`) file
